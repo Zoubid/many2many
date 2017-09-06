@@ -1,48 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
-    <data>
-        <record model="ir.actions.act_window" id="many2many_handle_list_action">
-            <field name="name">Items for handle widget</field>
-            <field name="res_model">model.m2m</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="help" type="html">
-                <p class="oe_view_nocontent_create">Create the first item for the handle model.
-                </p>
-            </field>
-        </record>
+	<data>
+		<record model="ir.ui.view" id="many2many_handle">
+			<field name="name">Items for handle widget</field>
+			<field name="model">model.m2m</field>
+			<field name="arch" type="xml">
+			<form>
+
+			</form>
+			</field>
+		</record>
 
 
-        <record id="many2many_pre_filled_handle_action" model="ir.ui.view">
-            <field name="name">calling the M2M</field>
-            <field name="model">connect.m2m</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="arch" type="xml">
-            <form>
-                <field name="price"/>
-                <field name="taxe"/>
-                <field name="active" readonly="1"/>
-                <group>
-                <field name="print_handle_ids">
-                <tree string="Printing order" editable="bottom">
-                                    
-                    <field name="name"/>
-                </tree>
-                </field>
-            </group>
-            </form>
-            </field>
-        </record>
+		<record id="many2many_pre_filled_handle_action" model="ir.ui.view">
+			<field name="name">calling the M2M</field>
+			<field name="model">connect.m2m</field>
+			<field name="arch" type="xml">
+			<form>
+				<field name="price"/>
+				<field name="taxe"/>
+				<field name="active" readonly="1"/>
+				<group>
+				<field name="print_handle_ids">
+				<tree string="Printing order" editable="bottom">
+									
+					<field name="name"/>
+				</tree>
+				</field>
+			</group>
+			</form>
+			</field>
+		</record>
+		
+		<act_window id="action_footer_1"
+				name="manyid"
+				res_model="model.m2m"
+				view_mode="tree,form" />
+		<act_window id="action_footer_2"
+				name="many"
+				res_model="connect.m2m"
+				view_mode="tree,form" />
 
-        <!-- top level menu: no parent -->
-        <menuitem id="main_many2many_handle_menu" name="Many2many"/>
-        <menuitem id="many2many_handle_menu" name="Many2many demo"
-                  parent="main_many2many_handle_menu"/>
-        <menuitem id="many2many_item_menu" name="Items for Many2many" parent="many2many_handle_menu"
-                  action="many2many_handle_list_action"/>
-        <menuitem id="menu_pre_filled"
-                action="many2many_pre_filled_handle_action" parent="many2many_handle_menu"
-                sequence="20"/>
-    </data>
+		<!-- top level menu: no parent -->
+		<menuitem id="head" name="Many2many"/>
+
+		<menuitem id="body" name="Many2many the demo"
+				  parent="head"/>
+
+		<menuitem id="footer1" name="Items for Many2many" parent="body"
+				  action="action_footer_1"/>
+
+		<menuitem id="footer2"
+				action="action_footer_2" name ="create many2many" parent="body"
+				sequence="20"/>
+	</data>
 </openerp>
